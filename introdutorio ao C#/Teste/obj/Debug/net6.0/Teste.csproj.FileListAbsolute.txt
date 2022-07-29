@@ -1,0 +1,15 @@
+D:\Codes\CursoDOTNET\Teste\bin\Debug\net6.0\Teste.exe
+D:\Codes\CursoDOTNET\Teste\bin\Debug\net6.0\Teste.deps.json
+D:\Codes\CursoDOTNET\Teste\bin\Debug\net6.0\Teste.runtimeconfig.json
+D:\Codes\CursoDOTNET\Teste\bin\Debug\net6.0\Teste.dll
+D:\Codes\CursoDOTNET\Teste\bin\Debug\net6.0\Teste.pdb
+D:\Codes\CursoDOTNET\Teste\obj\Debug\net6.0\Teste.csproj.AssemblyReference.cache
+D:\Codes\CursoDOTNET\Teste\obj\Debug\net6.0\Teste.GeneratedMSBuildEditorConfig.editorconfig
+D:\Codes\CursoDOTNET\Teste\obj\Debug\net6.0\Teste.AssemblyInfoInputs.cache
+D:\Codes\CursoDOTNET\Teste\obj\Debug\net6.0\Teste.AssemblyInfo.cs
+D:\Codes\CursoDOTNET\Teste\obj\Debug\net6.0\Teste.csproj.CoreCompileInputs.cache
+D:\Codes\CursoDOTNET\Teste\obj\Debug\net6.0\Teste.dll
+D:\Codes\CursoDOTNET\Teste\obj\Debug\net6.0\refint\Teste.dll
+D:\Codes\CursoDOTNET\Teste\obj\Debug\net6.0\Teste.pdb
+D:\Codes\CursoDOTNET\Teste\obj\Debug\net6.0\Teste.genruntimeconfig.cache
+D:\Codes\CursoDOTNET\Teste\obj\Debug\net6.0\ref\Teste.dll

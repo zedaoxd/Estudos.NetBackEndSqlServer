@@ -1,0 +1,16 @@
+D:\Codes\CursoDOTNET\Teste2\bin\Debug\net5.0\Teste2.exe
+D:\Codes\CursoDOTNET\Teste2\bin\Debug\net5.0\Teste2.deps.json
+D:\Codes\CursoDOTNET\Teste2\bin\Debug\net5.0\Teste2.runtimeconfig.json
+D:\Codes\CursoDOTNET\Teste2\bin\Debug\net5.0\Teste2.runtimeconfig.dev.json
+D:\Codes\CursoDOTNET\Teste2\bin\Debug\net5.0\Teste2.dll
+D:\Codes\CursoDOTNET\Teste2\bin\Debug\net5.0\Teste2.pdb
+D:\Codes\CursoDOTNET\Teste2\obj\Debug\net5.0\Teste2.csproj.AssemblyReference.cache
+D:\Codes\CursoDOTNET\Teste2\obj\Debug\net5.0\Teste2.GeneratedMSBuildEditorConfig.editorconfig
+D:\Codes\CursoDOTNET\Teste2\obj\Debug\net5.0\Teste2.AssemblyInfoInputs.cache
+D:\Codes\CursoDOTNET\Teste2\obj\Debug\net5.0\Teste2.AssemblyInfo.cs
+D:\Codes\CursoDOTNET\Teste2\obj\Debug\net5.0\Teste2.csproj.CoreCompileInputs.cache
+D:\Codes\CursoDOTNET\Teste2\obj\Debug\net5.0\Teste2.dll
+D:\Codes\CursoDOTNET\Teste2\obj\Debug\net5.0\refint\Teste2.dll
+D:\Codes\CursoDOTNET\Teste2\obj\Debug\net5.0\Teste2.pdb
+D:\Codes\CursoDOTNET\Teste2\obj\Debug\net5.0\Teste2.genruntimeconfig.cache
+D:\Codes\CursoDOTNET\Teste2\obj\Debug\net5.0\ref\Teste2.dll
