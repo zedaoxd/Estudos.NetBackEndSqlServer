@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Dapper;
 using DapperConnectionDB.model;
 using Microsoft.Data.SqlClient;
@@ -248,10 +250,51 @@ namespace DapperConnectionDB
                 Console.WriteLine($"{item.Title} - {item.course.Title}");
             }
         }
-    
+
         static void OneToMany(SqlConnection connection)
         {
+            var sql = @"
+                SELECT
+                    [Career].[Id],
+                    [Career].[Title],
+                    [CareerItem].[CareerId],
+                    [CareerItem].[Title]
+                FROM
+                    [Career]
+                INNER JOIN
+                    [CareerItem] ON [CareerItem].[CareerId] = [Career].[Id]
+                ORDER BY 
+                    [Career].[Title]";
 
+            var careers = new List<Career>();
+            var items = connection.Query<Career, CareerItem, Career>(
+                sql,
+                (career, careerItem) =>
+                {
+                    var car = careers.Where(x => x.Id == career.Id).FirstOrDefault();
+                    if (car == null)
+                    {
+                        car = career;
+                        car.Items.Add(careerItem);
+                        careers.Add(car);
+                    }
+                    else 
+                    {
+                        car.Items.Add(careerItem);
+                    }
+                    return career;
+                },
+                splitOn: "CareerId"
+            );
+
+            foreach (var career in careers)
+            {
+                Console.WriteLine($"{career.Title}");
+                foreach (var item in career.Items)
+                {
+                    Console.WriteLine($" - {item.Title}");
+                }
+            }
         }
     }
 }
