@@ -19,7 +19,8 @@ namespace DapperConnectionDB
                 //ListCategories(connection);
                 //Console.WriteLine(GetCategory(connection));
                 //ExecuteProcedure(connection, "4799b409-149d-4277-9940-a300582f9c3a");
-                ExecuteReadProcedure(connection, "09ce0b7b-cfca-497b-92c0-3290ad9d5142");
+                //ExecuteReadProcedure(connection, "09ce0b7b-cfca-497b-92c0-3290ad9d5142");
+                ExecuteScalar(connection);
             }
         }
 
@@ -178,5 +179,38 @@ namespace DapperConnectionDB
                 Console.WriteLine($"{item.Id} - {item.Title} - {item.Url}");
             }
         }
+    
+        static void ExecuteScalar(SqlConnection connection)
+        {
+            var category = new Category();
+            category.Title = "Amazon AWS";
+            category.Url = "amazon";
+            category.Description = "Categoria destinada a serviçoes do AWS";
+            category.Order = 8;
+            category.Summary = "AWS Cloud";
+            category.Featured = false;
+
+            // SQL injection
+            var insertSql = @"INSERT INTO 
+                    [Category] ([Id], [Title], [Url], [Summary], [Order],[Description], [Featured]) 
+                OUTPUT
+                    inserted.[Id]
+                VALUES 
+                    (NEWID(), @Title, @Url, @Summary, @Order, @Description, @Featured)";
+
+            var id = connection.ExecuteScalar<Guid>(insertSql, new
+            {
+                category.Title,
+                category.Url,
+                category.Summary,
+                category.Order,
+                category.Description,
+                category.Featured
+            });
+
+            Console.WriteLine($"A categoria inserida foi: {id}");
+        }
+    
+        
     }
 }
