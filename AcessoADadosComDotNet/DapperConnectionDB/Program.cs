@@ -12,8 +12,10 @@ namespace DapperConnectionDB
             using (var connection = new SqlConnection(StringConnection.connection))
             {
                 //CreateCategory(connection);
-                UpdateCategory(connection);
-                ListCategories(connection);
+                //UpdateCategory(connection);
+                //DeleteCategory(connection);
+                //ListCategories(connection);
+                Console.WriteLine(GetCategory(connection));
             }
         }
 
@@ -68,6 +70,32 @@ namespace DapperConnectionDB
             });
 
             Console.WriteLine($"{rows} registros atualizados");
+        }
+
+        static void DeleteCategory(SqlConnection connection)
+        {
+            var deleteQuery = "DELETE [Category] WHERE [Id] = @id";
+            var rows = connection.Execute(deleteQuery, new
+            {
+                id = new Guid("c9ee3468-d95e-4413-bb50-67ca475ecfc5")
+            });
+
+            Console.WriteLine($"{rows} registros deletadas");
+        }
+
+        static Category GetCategory(SqlConnection connection)
+        {
+            return connection.QueryFirstOrDefault<Category>(
+                @"SELECT TOP 1 
+                    [Id], [Title], [Url], [Summary], [Order], [Description], [Featured]
+                FROM
+                    [Category]
+                WHERE
+                    [Id] = @id",
+                new
+                {
+                    id = "06d73e6b-315f-4cfc-b462-f643e1a50e97"
+                });
         }
     }
 }

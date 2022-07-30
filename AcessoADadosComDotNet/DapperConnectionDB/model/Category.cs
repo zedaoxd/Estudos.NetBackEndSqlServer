@@ -26,5 +26,10 @@ namespace DapperConnectionDB.model
             Description = description;
             Featured = featured;
         }
+
+        public override string ToString()
+        {
+            return $"{Id} - {Title} - {Url} - {Summary} - {Order} - {Description} - {Featured}";
+        }
     }
 }
