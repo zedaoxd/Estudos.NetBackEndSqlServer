@@ -20,7 +20,8 @@ namespace DapperConnectionDB
                 //Console.WriteLine(GetCategory(connection));
                 //ExecuteProcedure(connection, "4799b409-149d-4277-9940-a300582f9c3a");
                 //ExecuteReadProcedure(connection, "09ce0b7b-cfca-497b-92c0-3290ad9d5142");
-                ExecuteScalar(connection);
+                //ExecuteScalar(connection);
+                ReadView(connection);
             }
         }
 
@@ -211,6 +212,14 @@ namespace DapperConnectionDB
             Console.WriteLine($"A categoria inserida foi: {id}");
         }
     
-        
+        static void ReadView(SqlConnection connection)
+        {
+            var sql = "SELECT * FROM [vwCourses]";
+            var courses = connection.Query(sql);
+            foreach (var item in courses)
+            {
+                Console.WriteLine($"{item.Id} - {item.Title}");
+            }
+        }
     }
 }
