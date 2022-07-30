@@ -11,11 +11,12 @@ namespace DapperConnectionDB
         {
             using (var connection = new SqlConnection(StringConnection.connection))
             {
+                //CreateManyCategory(connection);
                 //CreateCategory(connection);
                 //UpdateCategory(connection);
                 //DeleteCategory(connection);
-                //ListCategories(connection);
-                Console.WriteLine(GetCategory(connection));
+                ListCategories(connection);
+                //Console.WriteLine(GetCategory(connection));
             }
         }
 
@@ -97,5 +98,59 @@ namespace DapperConnectionDB
                     id = "06d73e6b-315f-4cfc-b462-f643e1a50e97"
                 });
         }
+
+        static void CreateManyCategory(SqlConnection connection)
+        {
+            var category = new Category(
+                Guid.NewGuid(),
+                "Amazon AWS",
+                "amazon",
+                "AWS Cloud",
+                8,
+                "Categoria destinada a serviçoes do AWS",
+                false
+            );
+
+            var category2 = new Category(
+                Guid.NewGuid(),
+                "Categoria Nova",
+                "categoria-nova",
+                "Categoria Nova",
+                9,
+                "Categoria",
+                true
+            );
+
+            // SQL injection
+            var insertSql = @"INSERT INTO 
+                    [Category] ([Id], [Title], [Url], [Summary], [Order],[Description], [Featured]) 
+                VALUES 
+                    (@Id, @Title, @Url, @Summary, @Order, @Description, @Featured)";
+
+            var rows = connection.Execute(insertSql, new[]
+            {
+                new {
+                    category.Id,
+                    category.Title,
+                    category.Url,
+                    category.Summary,
+                    category.Order,
+                    category.Description,
+                    category.Featured
+                },
+                new {
+                    category2.Id,
+                    category2.Title,
+                    category2.Url,
+                    category2.Summary,
+                    category2.Order,
+                    category2.Description,
+                    category2.Featured
+                }
+            });
+
+            Console.WriteLine($"{rows} linhas inseridas!");
+        }
+
     }
 }
