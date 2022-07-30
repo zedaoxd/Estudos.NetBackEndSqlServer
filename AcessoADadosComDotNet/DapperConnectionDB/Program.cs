@@ -64,7 +64,7 @@ namespace DapperConnectionDB
             var rows = connection.Execute(updateQuery, new
             {
                 id = new Guid("af3407aa-11ae-4621-a2ef-2028b85507c4"),
-                title = "Frondent 2022"
+                title = "Frontend 2022"
             });
 
             Console.WriteLine($"{rows} registros atualizados");
