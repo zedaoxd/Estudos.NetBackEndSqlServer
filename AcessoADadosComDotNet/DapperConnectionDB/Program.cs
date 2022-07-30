@@ -14,18 +14,19 @@ namespace DapperConnectionDB
         {
             using (var connection = new SqlConnection(StringConnection.connection))
             {
-                //CreateManyCategory(connection);
-                //CreateCategory(connection);
-                //UpdateCategory(connection);
-                //DeleteCategory(connection);
-                //ListCategories(connection);
-                //Console.WriteLine(GetCategory(connection));
-                //ExecuteProcedure(connection, "4799b409-149d-4277-9940-a300582f9c3a");
-                //ExecuteReadProcedure(connection, "09ce0b7b-cfca-497b-92c0-3290ad9d5142");
-                //ExecuteScalar(connection);
-                //ReadView(connection);
-                //OneToOne(connection);
-                OneToMany(connection);
+                // CreateManyCategory(connection);
+                // CreateCategory(connection);
+                // UpdateCategory(connection);
+                // DeleteCategory(connection);
+                // ListCategories(connection);
+                // Console.WriteLine(GetCategory(connection));
+                // ExecuteProcedure(connection, "4799b409-149d-4277-9940-a300582f9c3a");
+                // ExecuteReadProcedure(connection, "09ce0b7b-cfca-497b-92c0-3290ad9d5142");
+                // ExecuteScalar(connection);
+                // ReadView(connection);
+                // OneToOne(connection);
+                // OneToMany(connection);
+                QueryMultiple(connection);
             }
         }
 
@@ -293,6 +294,28 @@ namespace DapperConnectionDB
                 foreach (var item in career.Items)
                 {
                     Console.WriteLine($" - {item.Title}");
+                }
+            }
+        }
+    
+        static void QueryMultiple(SqlConnection connection)
+        {
+            var sql = @"SELECT * FROM [Category]; 
+                        SELECT * FROM [Course];";
+            
+            using (var multi = connection.QueryMultiple(sql))
+            {
+                var categories = multi.Read<Category>();
+                var courses = multi.Read<Course>();
+
+                foreach (var item in categories)
+                {
+                    Console.WriteLine(item.Title);
+                }
+                Console.WriteLine("\n-------------------------\n");
+                foreach (var item in courses)
+                {
+                    Console.WriteLine(item.Title);
                 }
             }
         }
