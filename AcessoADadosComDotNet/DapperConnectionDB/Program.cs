@@ -26,7 +26,8 @@ namespace DapperConnectionDB
                 // ReadView(connection);
                 // OneToOne(connection);
                 // OneToMany(connection);
-                QueryMultiple(connection);
+                // QueryMultiple(connection);
+                SelectIn(connection);
             }
         }
 
@@ -279,7 +280,7 @@ namespace DapperConnectionDB
                         car.Items.Add(careerItem);
                         careers.Add(car);
                     }
-                    else 
+                    else
                     {
                         car.Items.Add(careerItem);
                     }
@@ -297,12 +298,12 @@ namespace DapperConnectionDB
                 }
             }
         }
-    
+
         static void QueryMultiple(SqlConnection connection)
         {
             var sql = @"SELECT * FROM [Category]; 
                         SELECT * FROM [Course];";
-            
+
             using (var multi = connection.QueryMultiple(sql))
             {
                 var categories = multi.Read<Category>();
@@ -317,6 +318,31 @@ namespace DapperConnectionDB
                 {
                     Console.WriteLine(item.Title);
                 }
+            }
+        }
+
+        static void SelectIn(SqlConnection connection)
+        {
+            var query = @"
+                SELECT 
+                    * 
+                FROM 
+                    [Career] 
+                WHERE 
+                    [Id] IN @Id;";
+
+            var items = connection.Query<Career>(query, new
+            {
+                Id = new[] 
+                {
+                    "01ae8a85-b4e8-4194-a0f1-1c6190af54cb",
+                    "4327ac7e-963b-4893-9f31-9a3b28a4e72b"
+                }
+            });
+
+            foreach (var item in items)
+            {
+                Console.WriteLine($"{item.Title}");
             }
         }
     }
