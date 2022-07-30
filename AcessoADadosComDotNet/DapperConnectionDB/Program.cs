@@ -18,7 +18,8 @@ namespace DapperConnectionDB
                 //DeleteCategory(connection);
                 //ListCategories(connection);
                 //Console.WriteLine(GetCategory(connection));
-                ExecuteProcedure(connection, "4799b409-149d-4277-9940-a300582f9c3a");
+                //ExecuteProcedure(connection, "4799b409-149d-4277-9940-a300582f9c3a");
+                ExecuteReadProcedure(connection, "09ce0b7b-cfca-497b-92c0-3290ad9d5142");
             }
         }
 
@@ -160,6 +161,22 @@ namespace DapperConnectionDB
             var pars = new {StudentId = id};
             var affectedRows = connection.Execute(procedure, pars, commandType: CommandType.StoredProcedure);
             Console.WriteLine($"{affectedRows} linhas afetadas");
+        }
+    
+        static void ExecuteReadProcedure(SqlConnection connection, string idCategory)
+        {
+            var procedure = "[spGetCourseByCategory]";
+            var pars = new { CategoryId = idCategory };
+            var courses = connection.Query<Category>(
+                procedure,
+                pars,
+                commandType: CommandType.StoredProcedure
+            );
+
+            foreach (var item in courses)
+            {
+                Console.WriteLine($"{item.Id} - {item.Title} - {item.Url}");
+            }
         }
     }
 }
