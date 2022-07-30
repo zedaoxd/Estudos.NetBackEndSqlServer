@@ -28,7 +28,8 @@ namespace DapperConnectionDB
                 // OneToMany(connection);
                 // QueryMultiple(connection);
                 // SelectIn(connection);
-                Like(connection, "api");
+                // Like(connection, "api");
+                Transaction(connection);
             }
         }
 
@@ -359,6 +360,45 @@ namespace DapperConnectionDB
             foreach (var item in items)
             {
                 Console.WriteLine($"{item.Title}");
+            }
+        }
+    
+        static void Transaction(SqlConnection connection)
+        {
+            var category = new Category(
+                Guid.NewGuid(),
+                "Minha categoria *.*",
+                "amazon",
+                "AWS Cloud",
+                8,
+                "Categoria destinada a serviçoes do AWS",
+                false
+            );
+
+            // SQL injection
+            var insertSql = @"INSERT INTO 
+                    [Category] ([Id], [Title], [Url], [Summary], [Order],[Description], [Featured]) 
+                VALUES 
+                    (@Id, @Title, @Url, @Summary, @Order, @Description, @Featured)";
+
+            connection.Open();
+            using (var transaction = connection.BeginTransaction())
+            {
+                var rows = connection.Execute(insertSql, new
+                {
+                    category.Id,
+                    category.Title,
+                    category.Url,
+                    category.Summary,
+                    category.Order,
+                    category.Description,
+                    category.Featured
+                }, 
+                transaction);
+
+                //transaction.Commit();
+                transaction.Rollback();
+                Console.WriteLine($"{rows} linhas inseridas!");
             }
         }
     }
