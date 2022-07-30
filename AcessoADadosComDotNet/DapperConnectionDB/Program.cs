@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using Dapper;
 using DapperConnectionDB.model;
 using Microsoft.Data.SqlClient;
@@ -15,8 +16,9 @@ namespace DapperConnectionDB
                 //CreateCategory(connection);
                 //UpdateCategory(connection);
                 //DeleteCategory(connection);
-                ListCategories(connection);
+                //ListCategories(connection);
                 //Console.WriteLine(GetCategory(connection));
+                ExecuteProcedure(connection, "4799b409-149d-4277-9940-a300582f9c3a");
             }
         }
 
@@ -152,5 +154,12 @@ namespace DapperConnectionDB
             Console.WriteLine($"{rows} linhas inseridas!");
         }
 
+        static void ExecuteProcedure(SqlConnection connection, string id)
+        {
+            var procedure = "[spDeleteStudent]";
+            var pars = new {StudentId = id};
+            var affectedRows = connection.Execute(procedure, pars, commandType: CommandType.StoredProcedure);
+            Console.WriteLine($"{affectedRows} linhas afetadas");
+        }
     }
 }
