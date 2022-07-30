@@ -9,6 +9,25 @@ namespace DapperConnectionDB
     {
         static void Main(string[] args)
         {
+            using (var connection = new SqlConnection(StringConnection.connection))
+            {
+                //CreateCategory(connection);
+                UpdateCategory(connection);
+                ListCategories(connection);
+            }
+        }
+
+        static void ListCategories(SqlConnection connection)
+        {
+            var categories = connection.Query<Category>("SELECT [Id], [Title] FROM [Category]");
+            foreach (var item in categories)
+            {
+                Console.WriteLine($"{item.Id} - {item.Title}");
+            }
+        }
+
+        static void CreateCategory(SqlConnection connection)
+        {
             var category = new Category(
                 Guid.NewGuid(),
                 "Amazon AWS",
@@ -25,26 +44,30 @@ namespace DapperConnectionDB
                 VALUES 
                     (@Id, @Title, @Url, @Summary, @Order, @Description, @Featured)";
 
-            using (var connection = new SqlConnection(StringConnection.connection))
+            var rows = connection.Execute(insertSql, new
             {
-                var rows = connection.Execute(insertSql, new
-                {
-                    category.Id,
-                    category.Title,
-                    category.Url,
-                    category.Summary,
-                    category.Order,
-                    category.Description,
-                    category.Featured
-                });
-                Console.WriteLine($"{rows} linhas inseridas!");
+                category.Id,
+                category.Title,
+                category.Url,
+                category.Summary,
+                category.Order,
+                category.Description,
+                category.Featured
+            });
 
-                var categories = connection.Query<Category>("SELECT [Id], [Title] FROM [Category]");
-                foreach (var item in categories)
-                {
-                    Console.WriteLine($"{item.Id} - {item.Title}");
-                }
-            }
+            Console.WriteLine($"{rows} linhas inseridas!");
+        }
+
+        static void UpdateCategory(SqlConnection connection)
+        {
+            var updateQuery = "UPDATE [Category] SET [Title] = @title WHERE [Id] = @id";
+            var rows = connection.Execute(updateQuery, new
+            {
+                id = new Guid("af3407aa-11ae-4621-a2ef-2028b85507c4"),
+                title = "Frondent 2022"
+            });
+
+            Console.WriteLine($"{rows} registros atualizados");
         }
     }
 }
