@@ -27,7 +27,8 @@ namespace DapperConnectionDB
                 // OneToOne(connection);
                 // OneToMany(connection);
                 // QueryMultiple(connection);
-                SelectIn(connection);
+                // SelectIn(connection);
+                Like(connection, "api");
             }
         }
 
@@ -338,6 +339,21 @@ namespace DapperConnectionDB
                     "01ae8a85-b4e8-4194-a0f1-1c6190af54cb",
                     "4327ac7e-963b-4893-9f31-9a3b28a4e72b"
                 }
+            });
+
+            foreach (var item in items)
+            {
+                Console.WriteLine($"{item.Title}");
+            }
+        }
+    
+        static void Like(SqlConnection connection, string search)
+        {
+            var query = @"SELECT * FROM [Course] WHERE [Title] LIKE @exp";
+
+            var items = connection.Query<Course>(query, new
+            {
+                exp = $"%{search}%"
             });
 
             foreach (var item in items)
