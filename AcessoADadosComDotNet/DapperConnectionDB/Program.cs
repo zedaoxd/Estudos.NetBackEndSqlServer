@@ -21,7 +21,9 @@ namespace DapperConnectionDB
                 //ExecuteProcedure(connection, "4799b409-149d-4277-9940-a300582f9c3a");
                 //ExecuteReadProcedure(connection, "09ce0b7b-cfca-497b-92c0-3290ad9d5142");
                 //ExecuteScalar(connection);
-                ReadView(connection);
+                //ReadView(connection);
+                //OneToOne(connection);
+                OneToMany(connection);
             }
         }
 
@@ -160,11 +162,11 @@ namespace DapperConnectionDB
         static void ExecuteProcedure(SqlConnection connection, string id)
         {
             var procedure = "[spDeleteStudent]";
-            var pars = new {StudentId = id};
+            var pars = new { StudentId = id };
             var affectedRows = connection.Execute(procedure, pars, commandType: CommandType.StoredProcedure);
             Console.WriteLine($"{affectedRows} linhas afetadas");
         }
-    
+
         static void ExecuteReadProcedure(SqlConnection connection, string idCategory)
         {
             var procedure = "[spGetCourseByCategory]";
@@ -180,7 +182,7 @@ namespace DapperConnectionDB
                 Console.WriteLine($"{item.Id} - {item.Title} - {item.Url}");
             }
         }
-    
+
         static void ExecuteScalar(SqlConnection connection)
         {
             var category = new Category();
@@ -211,7 +213,7 @@ namespace DapperConnectionDB
 
             Console.WriteLine($"A categoria inserida foi: {id}");
         }
-    
+
         static void ReadView(SqlConnection connection)
         {
             var sql = "SELECT * FROM [vwCourses]";
@@ -220,6 +222,36 @@ namespace DapperConnectionDB
             {
                 Console.WriteLine($"{item.Id} - {item.Title}");
             }
+        }
+
+        static void OneToOne(SqlConnection connection)
+        {
+            var sql = @"
+                SELECT TOP 1000
+                    * 
+                FROM 
+                    [CareerItem] 
+                INNER JOIN 
+                    [Course] ON [CareerItem].[CourseId] = [Course].[Id]";
+
+            var items = connection.Query<CareerItem, Course, CareerItem>(
+                sql,
+                (carrerItem, course) =>
+                {
+                    carrerItem.course = course;
+                    return carrerItem;
+                },
+                splitOn: "Id");
+
+            foreach (var item in items)
+            {
+                Console.WriteLine($"{item.Title} - {item.course.Title}");
+            }
+        }
+    
+        static void OneToMany(SqlConnection connection)
+        {
+
         }
     }
 }
