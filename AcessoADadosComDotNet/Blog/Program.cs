@@ -1,6 +1,7 @@
 ﻿using System;
 using Blog.models;
 using Blog.repositories;
+using Blog.ui;
 using Dapper.Contrib.Extensions;
 using Microsoft.Data.SqlClient;
 
@@ -19,16 +20,17 @@ namespace Blog
             //     Slug = "slug"
             // };
 
-            var connection = new SqlConnection(StringConnection.Connection);
-            connection.Open();
+            // var connection = new SqlConnection(StringConnection.Connection);
+            // connection.Open();
 
-            // ReadUsers(connection);
-            // CreateUser(connection, user);
-            ReadUsersWithRoles(connection);
-            // ReadRoles(connection);
-            // ReadTags(connection);
+            // // ReadUsers(connection);
+            // // CreateUser(connection, user);
+            // ReadUsersWithRoles(connection);
+            // // ReadRoles(connection);
+            // // ReadTags(connection);
 
-            connection.Close();
+            // connection.Close();
+            Menu.LoopMenu();
         }
 
         public static void ReadUsers(SqlConnection connection)
