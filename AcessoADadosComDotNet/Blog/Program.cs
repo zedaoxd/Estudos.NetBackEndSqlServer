@@ -1,4 +1,5 @@
 ﻿using System;
+using Blog.ui.userUis.categories;
 using Blog.ui.userUis.roles;
 using Blog.ui.userUis.tags;
 using Blog.ui.userUis.users;
@@ -45,6 +46,7 @@ namespace Blog
                     MenuRolesUi.Load();
                     break;
                 case 3:
+                    MenuCategoryUi.Load();
                     break;
                 case 4:
                     MenuTagUi.Load();

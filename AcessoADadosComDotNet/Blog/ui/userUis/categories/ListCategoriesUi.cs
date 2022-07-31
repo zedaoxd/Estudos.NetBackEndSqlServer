@@ -2,15 +2,15 @@ using System;
 using Blog.models;
 using Blog.repositories;
 
-namespace Blog.ui.userUis.roles
+namespace Blog.ui.userUis.categories
 {
-    public static class ListRolesUi
+    public static class ListCategoriesUi
     {
         public static void Load()
         {
             Console.Clear();
             Console.WriteLine("---------------------------");
-            Console.WriteLine("----Listagem de Perfis-----");
+            Console.WriteLine("---Listagem de Categorias--");
             Console.WriteLine("---------------------------");
             List();
             Console.ReadKey();
@@ -19,10 +19,10 @@ namespace Blog.ui.userUis.roles
 
         private static void List()
         {
-            var repository = new Repository<Role>(Database.connection);
-            var roles = repository.Get();
+            var repository = new Repository<Category>(Database.connection);
+            var categories = repository.Get();
 
-            foreach (var item in roles)
+            foreach (var item in categories)
             {
                 Console.WriteLine($"{item.Id} - {item.Name} ({item.Slug})");
             }
