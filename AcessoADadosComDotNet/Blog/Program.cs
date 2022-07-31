@@ -1,83 +1,62 @@
 ﻿using System;
-using Blog.models;
-using Blog.repositories;
-using Blog.ui;
-using Dapper.Contrib.Extensions;
+using Blog.ui.userUis;
 using Microsoft.Data.SqlClient;
 
 namespace Blog
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            // var user = new User(){
-            //     Email = "test@test.com",
-            //     Bio = "bio",
-            //     Image = "image",
-            //     Name = "Name",
-            //     PasswordHash = "hash",
-            //     Slug = "slug"
-            // };
+            Database.connection = new SqlConnection(StringConnection.Connection);
+            Database.connection.Open();
 
-            // var connection = new SqlConnection(StringConnection.Connection);
-            // connection.Open();
+            Load();
 
-            // // ReadUsers(connection);
-            // // CreateUser(connection, user);
-            // ReadUsersWithRoles(connection);
-            // // ReadRoles(connection);
-            // // ReadTags(connection);
-
-            // connection.Close();
-            Menu.LoopMenu();
+            Console.ReadKey();
+            Database.connection.Close();
         }
 
-        public static void ReadUsers(SqlConnection connection)
-        {
-            var repository = new Repository<User>(connection);
-            var items = repository.Get();
+        public static void Load() { 
+            Console.Clear();
+            Console.WriteLine("---------------------------");
+            Console.WriteLine("-----------Blog------------");
+            Console.WriteLine("---------------------------");
+            Console.WriteLine();
+            Console.WriteLine("[1] Gestão de usuário");
+            Console.WriteLine("[2] Gestão de perfil");
+            Console.WriteLine("[3] Gestão de categoria");
+            Console.WriteLine("[4] Gestão de tag");
+            Console.WriteLine("[5] Vincular perfil/post");
+            Console.WriteLine("[6] Vincular post/tag");
+            Console.WriteLine("[7] Relatórios");
+            Console.WriteLine("[0] Sair");
+            Console.WriteLine("\n\n");
+            var option = short.Parse(Console.ReadLine()!);
 
-            foreach (var item in items)
-                Console.WriteLine(item.Name);
-        }
-
-        public static void CreateUser(SqlConnection connection, User user)
-        {
-            var repository = new Repository<User>(connection);
-            repository.Create(user);
-        }
-
-        public static void ReadUsersWithRoles(SqlConnection connection)
-        {
-            var repository = new UserRepository(connection);
-            var items = repository.GetWithRoles();
-
-            foreach (var item in items)
+            switch (option)
             {
-                Console.WriteLine(item.Name);
-                foreach (var role in item.Roles)
-                    Console.WriteLine($" --> {role.Name}");
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    MenuTagUi.Load();
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                case 0:
+                    Environment.Exit(0);
+                    break;
+                default:
+                    break;
             }
-                
-        }
-
-        public static void ReadRoles(SqlConnection connection)
-        {
-            var repository = new Repository<Role>(connection);
-            var items = repository.Get();
-
-            foreach (var item in items)
-                Console.WriteLine(item.Name);
-        }
-
-        public static void ReadTags(SqlConnection connection)
-        {
-            var repository = new Repository<Tag>(connection);
-            var items = repository.Get();
-
-            foreach (var item in items)
-                Console.WriteLine(item.Name);
         }
     }
 }

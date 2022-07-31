@@ -22,7 +22,7 @@ namespace Blog.repositories
                     [User]
                     LEFT JOIN [UserRole] ON [UserRole].[UserId] = [User].[Id]
                     LEFT JOIN [Role] ON [UserRole].[RoleId] = [Role].[Id]";
-            
+
             var users = new List<User>();
 
             var items = _connection.Query<User, Role, User>(
@@ -38,14 +38,14 @@ namespace Blog.repositories
 
                         users.Add(user);
                     }
-                    else 
+                    else
                     {
                         users.Add(user);
                     }
                     return user;
                 }
             , splitOn: "Id");
-            
+
 
             return users;
         }
