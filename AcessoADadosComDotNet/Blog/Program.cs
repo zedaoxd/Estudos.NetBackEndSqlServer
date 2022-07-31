@@ -13,28 +13,22 @@ namespace Blog
             var connection = new SqlConnection(StringConnection.Connection);
             connection.Open();
 
-            ReadUsers(connection);
+            //ReadUsers(connection);
+            //ReadRoles(connection);
+            var repository = new UserRepository(connection);
+
+            var user = new User(){
+                Name = "teste",
+                Email = "teste",
+                PasswordHash = "teste",
+                Bio = "teste",
+                Image = "teste",
+                Slug = "teste"
+            };
+
+            repository.Delete(4);
 
             connection.Close();
-
-
-            //GetUser(1);
-
-            // var user = new User()
-            // {
-            //     Id = 2,
-            //     Bio = "Students style",
-            //     Email = "student@gmail.com",
-            //     Image = "https://",
-            //     Name = "Student",
-            //     PasswordHash = "HASH",
-            //     Slug = "student-time"
-            // };
-            //CreateUser(user);
-
-            //UpdateUser(user);
-
-            //DeleteUser(user);
         }
 
         public static void ReadUsers(SqlConnection connection)
@@ -46,40 +40,13 @@ namespace Blog
                 Console.WriteLine(user.Name);
         }
 
-        public static void GetUser(int id)
+        public static void ReadRoles(SqlConnection connection)
         {
-            using (var conection = new SqlConnection(StringConnection.Connection))
-            {
-                var user = conection.Get<User>(id);
-                Console.WriteLine(user.Name);
-            }
-        }
+            var repository = new RoleRepository(connection);
+            var roles = repository.Get();
 
-        public static void CreateUser(User user)
-        {
-            using (var conection = new SqlConnection(StringConnection.Connection))
-            {
-                conection.Insert<User>(user);
-                Console.WriteLine("Cadastro realizado com sucesso");
-            }
-        }
-
-        public static void UpdateUser(User user)
-        {
-            using (var conection = new SqlConnection(StringConnection.Connection))
-            {
-                conection.Update<User>(user);
-                Console.WriteLine("Cadastro atualizado com sucesso");
-            }
-        }
-
-        public static void DeleteUser(User user)
-        {
-            using (var conection = new SqlConnection(StringConnection.Connection))
-            {
-                conection.Delete<User>(user);
-                Console.WriteLine("Usuário excluido com sucesso");
-            }
+            foreach (var role in roles)
+                Console.WriteLine(role.Name);
         }
     }
 }
