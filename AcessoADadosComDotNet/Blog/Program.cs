@@ -1,6 +1,7 @@
 ﻿using System;
 using Blog.ui.userUis.categories;
 using Blog.ui.userUis.posts;
+using Blog.ui.userUis.reports;
 using Blog.ui.userUis.roles;
 using Blog.ui.userUis.tags;
 using Blog.ui.userUis.users;
@@ -31,10 +32,8 @@ namespace Blog
             Console.WriteLine("[2] Gestão de perfil");
             Console.WriteLine("[3] Gestão de categoria");
             Console.WriteLine("[4] Gestão de tag");
-            //Console.WriteLine("[5] Vincular perfil/post");
             Console.WriteLine("[5] Gestão de post");
-            Console.WriteLine("[6] Vincular post/tag");
-            Console.WriteLine("[7] Relatórios");
+            Console.WriteLine("[6] Relatórios");
             Console.WriteLine("[0] Sair");
             Console.WriteLine("\n\n");
             var option = short.Parse(Console.ReadLine()!);
@@ -57,8 +56,7 @@ namespace Blog
                     MenuPostsUi.Load();
                     break;
                 case 6:
-                    break;
-                case 7:
+                    MenuReportsUi.Load();
                     break;
                 case 0:
                     Environment.Exit(0);
