@@ -1,5 +1,6 @@
 ﻿using System;
 using Blog.ui.userUis;
+using Blog.ui.userUis.users;
 using Microsoft.Data.SqlClient;
 
 namespace Blog
@@ -37,6 +38,7 @@ namespace Blog
             switch (option)
             {
                 case 1:
+                    MenuUserUi.Load();
                     break;
                 case 2:
                     break;

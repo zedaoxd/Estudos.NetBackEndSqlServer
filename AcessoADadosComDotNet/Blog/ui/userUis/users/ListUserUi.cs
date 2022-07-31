@@ -1,31 +1,28 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Blog.models;
 using Blog.repositories;
 
-namespace Blog.ui.userUis
+namespace Blog.ui.userUis.users
 {
-    public static class ListTagsUi
+    public static class ListUserUi
     {
         public static void Load()
         {
             Console.Clear();
             Console.WriteLine("---------------------------");
-            Console.WriteLine("-----Listagem de Tags------");
+            Console.WriteLine("---Listagem de Usuários----");
             Console.WriteLine("---------------------------");
             List();
             Console.ReadKey();
-            MenuTagUi.Load();
+            Program.Load();
         }
 
         private static void List()
         {
-            var repository = new Repository<Tag>(Database.connection);
-            var tags = repository.Get();
+            var repository = new Repository<User>(Database.connection);
+            var users = repository.Get();
 
-            foreach (var item in tags)
+            foreach (var item in users)
             {
                 Console.WriteLine($"{item.Id} - {item.Name} ({item.Slug})");
             }

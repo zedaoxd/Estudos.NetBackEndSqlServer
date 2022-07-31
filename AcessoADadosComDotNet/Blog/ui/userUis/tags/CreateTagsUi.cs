@@ -4,39 +4,37 @@ using Blog.repositories;
 
 namespace Blog.ui.userUis
 {
-    public static class UpdateTagsUi
+    public static class CreateTagsUi
     {
         public static void Load()
         {
             Console.Clear();
             Console.WriteLine("---------------------------");
-            Console.WriteLine("------Atualizar Tags-------");
+            Console.WriteLine("--------Nova Tags----------");
             Console.WriteLine("---------------------------");
 
             var tag = new Tag();
-            Console.WriteLine("Id: ");
-            tag.Id = int.Parse(Console.ReadLine());
             Console.WriteLine("Nome: ");
             tag.Name = Console.ReadLine();
             Console.WriteLine("Slug: ");
             tag.Slug = Console.ReadLine();
 
-            Update(tag);
+            Create(tag);
             Console.ReadKey();
-            MenuTagUi.Load();
+            Program.Load();
         }
 
-        private static void Update(Tag tag)
+        private static void Create(Tag tag)
         {
             try
             {
                 var repository = new Repository<Tag>(Database.connection);
-                repository.Update(tag);
-                Console.WriteLine("Tag atualizada com sucesso");
+                repository.Create(tag);
+                Console.WriteLine("Tag cadastrada com sucesso");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Não foi possivel atualizar a Tag");
+                Console.WriteLine("Não foi possivel salvar a Tag");
                 Console.WriteLine(ex.Message);
             }
         }
