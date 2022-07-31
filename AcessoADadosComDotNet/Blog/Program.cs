@@ -10,20 +10,21 @@ namespace Blog
     {
         static void Main(string[] args)
         {
-            var user = new User(){
-                Email = "test@test.com",
-                Bio = "bio",
-                Image = "image",
-                Name = "Name",
-                PasswordHash = "hash",
-                Slug = "slug"
-            };
+            // var user = new User(){
+            //     Email = "test@test.com",
+            //     Bio = "bio",
+            //     Image = "image",
+            //     Name = "Name",
+            //     PasswordHash = "hash",
+            //     Slug = "slug"
+            // };
 
             var connection = new SqlConnection(StringConnection.Connection);
             connection.Open();
 
-            ReadUsers(connection);
-            CreateUser(connection, user);
+            // ReadUsers(connection);
+            // CreateUser(connection, user);
+            ReadUsersWithRoles(connection);
             // ReadRoles(connection);
             // ReadTags(connection);
 
@@ -43,6 +44,20 @@ namespace Blog
         {
             var repository = new Repository<User>(connection);
             repository.Create(user);
+        }
+
+        public static void ReadUsersWithRoles(SqlConnection connection)
+        {
+            var repository = new UserRepository(connection);
+            var items = repository.GetWithRoles();
+
+            foreach (var item in items)
+            {
+                Console.WriteLine(item.Name);
+                foreach (var role in item.Roles)
+                    Console.WriteLine($" --> {role.Name}");
+            }
+                
         }
 
         public static void ReadRoles(SqlConnection connection)
