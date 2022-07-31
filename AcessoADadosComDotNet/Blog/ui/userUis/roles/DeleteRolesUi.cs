@@ -2,19 +2,19 @@ using System;
 using Blog.models;
 using Blog.repositories;
 
-namespace Blog.ui.userUis.tags
+namespace Blog.ui.userUis.roles
 {
-    public static class DeleteTagsUi
+    public static class DeleteRolesUi
     {
         public static void Load()
         {
             Console.Clear();
             Console.WriteLine("---------------------------");
-            Console.WriteLine("-----Deletar uma Tag-------");
+            Console.WriteLine("------Deletar Perfil-------");
             Console.WriteLine("---------------------------");
 
             Console.WriteLine("Id: ");
-            int id = int.Parse(Console.ReadLine());
+            var id = int.Parse(Console.ReadLine());
 
             Delete(id);
             Console.ReadKey();
@@ -25,13 +25,13 @@ namespace Blog.ui.userUis.tags
         {
             try
             {
-                var repository = new Repository<Tag>(Database.connection);
+                var repository = new Repository<Role>(Database.connection);
                 repository.Delete(id);
-                Console.WriteLine("Tag excluida com sucesso");
+                Console.WriteLine("Perfil excluído com sucesso");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Não foi possivel deletar a Tag");
+                Console.WriteLine("Não foi possivel excluír o perfil");
                 Console.WriteLine(ex.Message);
             }
         }

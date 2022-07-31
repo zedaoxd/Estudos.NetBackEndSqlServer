@@ -1,22 +1,22 @@
 using System;
 
 
-namespace Blog.ui.userUis.tags
+namespace Blog.ui.userUis.roles
 {
-    public static class MenuTagUi
+    public static class MenuRolesUi
     {
         public static void Load()
         {
             Console.Clear();
             Console.WriteLine("---------------------------");
-            Console.WriteLine("------Gestão de Tags-------");
+            Console.WriteLine("-----Gestão de Perfis------");
             Console.WriteLine("---------------------------");
             Console.WriteLine("O que deseja fazer?");
             Console.WriteLine();
-            Console.WriteLine("[1] Listar tags");
-            Console.WriteLine("[2] Cadastrar tags");
-            Console.WriteLine("[3] Atualizar tags");
-            Console.WriteLine("[4] Excluir tags");
+            Console.WriteLine("[1] Listar perfis");
+            Console.WriteLine("[2] Cadastrar perfil");
+            Console.WriteLine("[3] Atualizar perfil");
+            Console.WriteLine("[4] Excluir perfil");
             Console.WriteLine("\n\n");
 
             try
@@ -25,16 +25,16 @@ namespace Blog.ui.userUis.tags
                 switch (option)
                 {
                     case 1:
-                        ListTagsUi.Load();
+                        ListRolesUi.Load();
                         break;
                     case 2:
-                        CreateTagsUi.Load();
+                        CreateRolesUi.Load();
                         break;
                     case 3:
-                        UpdateTagsUi.Load();
+                        UpdateRolesUi.Load();
                         break;
                     case 4:
-                        DeleteTagsUi.Load();
+                        DeleteRolesUi.Load();
                         break;
                     default:
                         Load();

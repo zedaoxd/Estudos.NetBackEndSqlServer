@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using Blog.models;
 using Blog.repositories;
 
-namespace Blog.ui.userUis.tags
+namespace Blog.ui.userUis.roles
 {
-    public static class ListTagsUi
+    public static class ListRolesUi
     {
         public static void Load()
         {
             Console.Clear();
             Console.WriteLine("---------------------------");
-            Console.WriteLine("-----Listagem de Tags------");
+            Console.WriteLine("----Listagem de Perfis-----");
             Console.WriteLine("---------------------------");
             List();
             Console.ReadKey();
@@ -22,10 +22,10 @@ namespace Blog.ui.userUis.tags
 
         private static void List()
         {
-            var repository = new Repository<Tag>(Database.connection);
-            var tags = repository.Get();
+            var repository = new Repository<Role>(Database.connection);
+            var roles = repository.Get();
 
-            foreach (var item in tags)
+            foreach (var item in roles)
             {
                 Console.WriteLine($"{item.Id} - {item.Name} ({item.Slug})");
             }

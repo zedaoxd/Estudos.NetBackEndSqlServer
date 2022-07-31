@@ -2,7 +2,7 @@ using System;
 using Blog.models;
 using Blog.repositories;
 
-namespace Blog.ui.userUis
+namespace Blog.ui.userUis.tags
 {
     public static class UpdateTagsUi
     {

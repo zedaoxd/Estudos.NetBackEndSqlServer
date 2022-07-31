@@ -1,5 +1,6 @@
 ﻿using System;
-using Blog.ui.userUis;
+using Blog.ui.userUis.roles;
+using Blog.ui.userUis.tags;
 using Blog.ui.userUis.users;
 using Microsoft.Data.SqlClient;
 
@@ -41,6 +42,7 @@ namespace Blog
                     MenuUserUi.Load();
                     break;
                 case 2:
+                    MenuRolesUi.Load();
                     break;
                 case 3:
                     break;
