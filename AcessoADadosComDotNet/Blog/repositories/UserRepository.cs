@@ -10,12 +10,16 @@ namespace Blog.repositories
 {
     public class UserRepository
     {
-        public IEnumerable<User> Get()
+        private readonly SqlConnection _connection;
+
+        public UserRepository(SqlConnection connection)
         {
-            using (var conection = new SqlConnection(StringConnection.Connection))
-            {
-                return conection.GetAll<User>();
-            }
+            _connection = connection;
         }
+
+        public IEnumerable<User> Get() => _connection.GetAll<User>();
+        public User Get(int id) => _connection.Get<User>(id);
+        public void Create(User user) => _connection.Insert<User>(user);
+        
     }
 }

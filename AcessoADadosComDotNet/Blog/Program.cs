@@ -10,37 +10,40 @@ namespace Blog
     {
         static void Main(string[] args)
         {
-            //ReadUsers();
+            var connection = new SqlConnection(StringConnection.Connection);
+            connection.Open();
+
+            ReadUsers(connection);
+
+            connection.Close();
+
 
             //GetUser(1);
 
-            var user = new User()
-            {
-                Id = 2,
-                Bio = "Students style",
-                Email = "student@gmail.com",
-                Image = "https://",
-                Name = "Student",
-                PasswordHash = "HASH",
-                Slug = "student-time"
-            };
+            // var user = new User()
+            // {
+            //     Id = 2,
+            //     Bio = "Students style",
+            //     Email = "student@gmail.com",
+            //     Image = "https://",
+            //     Name = "Student",
+            //     PasswordHash = "HASH",
+            //     Slug = "student-time"
+            // };
             //CreateUser(user);
 
             //UpdateUser(user);
 
-            DeleteUser(user);
+            //DeleteUser(user);
         }
 
-        public static void ReadUsers()
+        public static void ReadUsers(SqlConnection connection)
         {
-            var repository = new UserRepository();
+            var repository = new UserRepository(connection);
             var users = repository.Get();
-            
+
             foreach (var user in users)
-            {
                 Console.WriteLine(user.Name);
-            }
-            
         }
 
         public static void GetUser(int id)
