@@ -10,12 +10,22 @@ namespace Blog
     {
         static void Main(string[] args)
         {
+            var user = new User(){
+                Email = "test@test.com",
+                Bio = "bio",
+                Image = "image",
+                Name = "Name",
+                PasswordHash = "hash",
+                Slug = "slug"
+            };
+
             var connection = new SqlConnection(StringConnection.Connection);
             connection.Open();
 
             ReadUsers(connection);
-            ReadRoles(connection);
-            ReadTags(connection);
+            CreateUser(connection, user);
+            // ReadRoles(connection);
+            // ReadTags(connection);
 
             connection.Close();
         }
@@ -27,6 +37,12 @@ namespace Blog
 
             foreach (var item in items)
                 Console.WriteLine(item.Name);
+        }
+
+        public static void CreateUser(SqlConnection connection, User user)
+        {
+            var repository = new Repository<User>(connection);
+            repository.Create(user);
         }
 
         public static void ReadRoles(SqlConnection connection)

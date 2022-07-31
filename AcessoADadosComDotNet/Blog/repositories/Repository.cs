@@ -6,7 +6,7 @@ namespace Blog.repositories
 {
     public class Repository<T> where T : class
     {
-        private readonly SqlConnection _connection;
+        protected readonly SqlConnection _connection;
 
         public Repository(SqlConnection connection)
         {
