@@ -62,9 +62,8 @@ namespace Shop
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shop", Version = "v1" });
             });
-            //services.AddDbContext<DataContext>(x => x.UseInMemoryDatabase("Database"));
-            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("connectionString")));
-            services.AddScoped<DataContext, DataContext>();
+            services.AddDbContext<DataContext>(x => x.UseInMemoryDatabase("Database"));
+            // services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("connectionString")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
