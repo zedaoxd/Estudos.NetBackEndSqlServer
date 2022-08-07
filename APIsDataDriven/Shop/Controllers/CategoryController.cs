@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Models;
 
@@ -11,37 +13,37 @@ namespace Shop.Controllers
     {
         [HttpGet]
         [Route("")]
-        public string Get()
+        public async Task<ActionResult<List<Category>>> Get()
         {
-            return "Get";
+            return new List<Category>();
         }
 
         [HttpGet]
         [Route("{id:int}")]
-        public string GetById(int id)
+        public async Task<ActionResult<Category>> GetById(int id)
         {
-            return $"Get {id}";
+            return new Category();
         }
 
         [HttpPost]
         [Route("")]
-        public Category Post([FromBody]Category model)
+        public async Task<ActionResult<Category>> Post([FromBody]Category model)
         {
-            return model;
+            return Ok(model);
         }
 
         [HttpPut]
         [Route("{id:int}")]
-        public Category Put(int id, [FromBody]Category model)
+        public async Task<ActionResult<Category>> Put(int id, [FromBody]Category model)
         {
-            return model.Id == id ? model : null;
+            return model.Id == id ? Ok(model) : NotFound();
         }
 
         [HttpDelete]
         [Route("{id:int}")]
-        public string Delete(int id)
+        public async Task<ActionResult<Category>> Delete(int id)
         {
-            return "Delete";
+            return Ok();
         }
     }
 }
