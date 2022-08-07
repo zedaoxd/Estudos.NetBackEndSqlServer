@@ -15,16 +15,18 @@ namespace Shop.Controllers
     {
         [HttpGet]
         [Route("")]
-        public async Task<ActionResult<List<Category>>> Get()
+        public async Task<ActionResult<List<Category>>> Get([FromServices]DataContext context)
         {
-            return new List<Category>();
+            var categories = await context.Categories.AsNoTracking().ToListAsync();
+            return Ok(categories);
         }
 
         [HttpGet]
         [Route("{id:int}")]
-        public async Task<ActionResult<Category>> GetById(int id)
+        public async Task<ActionResult<Category>> GetById(int id, [FromServices]DataContext context)
         {
-            return new Category();
+            var category = await context.Categories.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            return category == null ? NotFound(new { message = "Categoria não encontrada"}) : category;
         }
 
         [HttpPost] // salvar dados
