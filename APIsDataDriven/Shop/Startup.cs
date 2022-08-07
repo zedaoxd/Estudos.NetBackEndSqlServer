@@ -1,7 +1,9 @@
+using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +26,14 @@ namespace Shop
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // otimizando, comprimindo o JSON antes de mandar pra tela
+            services.AddResponseCompression(x => 
+            {
+                x.Providers.Add<GzipCompressionProvider>();
+                x.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new [] {"application/json"});
+            });
 
+            // services.AddResponseCaching();
             services.AddControllers();
 
             // Autenticação
