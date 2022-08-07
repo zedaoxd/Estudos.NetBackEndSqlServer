@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Shop.Data;
 using Shop.Models;
 
@@ -26,7 +27,7 @@ namespace Shop.Controllers
             return new Category();
         }
 
-        [HttpPost]
+        [HttpPost] // salvar dados
         [Route("")]
         public async Task<ActionResult<Category>> Post([FromBody]Category model, [FromServices]DataContext context)
         {
@@ -45,9 +46,9 @@ namespace Shop.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut] // update dados
         [Route("{id:int}")]
-        public async Task<ActionResult<Category>> Put(int id, [FromBody]Category model)
+        public async Task<ActionResult<Category>> Put(int id, [FromBody]Category model, [FromServices]DataContext context)
         {
             // Verifica se o ID informado é o mesmo do modelo
             if (id != model.Id)
@@ -56,8 +57,22 @@ namespace Shop.Controllers
             // verifica se os dados são validos
             if (ModelState.IsValid)
                 return Ok(model);
+
             
-            return BadRequest(ModelState);
+            try
+            {
+                context.Entry<Category>(model).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+                return Ok(model);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return BadRequest(new { message = "Este registro já foi atualizado"});
+            }
+            catch (System.Exception)
+            {
+                return BadRequest(new { message = "Não foi possível atualizar a categoria"});
+            }
         }
 
         [HttpDelete]
