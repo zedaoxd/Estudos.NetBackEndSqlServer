@@ -57,8 +57,8 @@ namespace Shop.Controllers
                 return NotFound(new { message = "Categoria não encontrada" });
 
             // verifica se os dados são validos
-            if (ModelState.IsValid)
-                return Ok(model);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             
             try
