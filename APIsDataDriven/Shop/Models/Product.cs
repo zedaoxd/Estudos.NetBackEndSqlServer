@@ -9,7 +9,7 @@ namespace Shop.Models
 
         [Required(ErrorMessage = "Este campo é obrigatório")]
         [MinLength(3, ErrorMessage = "Este campo deve conter entre 3 a 60 caracteres")]
-        [MaxLength(3, ErrorMessage = "Este campo deve conter entre 3 a 60 caracteres")]
+        [MaxLength(60, ErrorMessage = "Este campo deve conter entre 3 a 60 caracteres")]
         public string Title { get; set; }
 
         [MaxLength(1024, ErrorMessage = "Este campo deve ter até 1024 caractares")]

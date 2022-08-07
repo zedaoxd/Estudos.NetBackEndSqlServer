@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,8 +15,58 @@ namespace Shop.Controllers
         [Route("")]
         public async Task<ActionResult<List<Product>>> Get([FromServices]DataContext context) 
         {
-            var product = await context.Products.Include(x => x.Category).AsNoTracking().ToListAsync();
-            return Ok(product);
+            var products = await context
+                .Products
+                .Include(x => x.Category)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return Ok(products);
+        }
+
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<ActionResult<Product>> GetById(int id, [FromServices]DataContext context)
+        {
+            var product = await context
+                .Products
+                .Include(x => x.Category)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
+            
+            return product != null ? Ok(product) : BadRequest("Não foi possivel encontrar o produto");
+        }
+
+        [HttpGet]
+        [Route("categories/{id:int}")]
+        public async Task<ActionResult<List<Product>>> GetByCategory([FromServices]DataContext context, int id)
+        {
+            var products = await context
+                .Products.Include(x => x.Category)
+                .AsNoTracking()
+                .Where(x => x.CategoryId == id)
+                .ToListAsync();
+            
+            return products != null ? Ok(products) : BadRequest("Não foi possivel encontrar produtos");
+        }
+
+        [HttpPost]
+        [Route("")]
+        public async Task<ActionResult<Product>> Post([FromBody]Product model, [FromServices]DataContext context) 
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try 
+            {
+                context.Products.Add(model);
+                await context.SaveChangesAsync();
+                return Ok(model);
+            }
+            catch 
+            {
+                return BadRequest("Não foi possivel salvar o produto");
+            }
         }
     }
 }
