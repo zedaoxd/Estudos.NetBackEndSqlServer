@@ -52,16 +52,16 @@ namespace Shop.Controllers
 
         [HttpPost]
         [Route("")]
-        public async Task<ActionResult<Product>> Post([FromBody]Product model, [FromServices]DataContext context) 
+        public async Task<ActionResult<Product>> Post([FromBody]Product product, [FromServices]DataContext context) 
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try 
             {
-                context.Products.Add(model);
+                context.Products.Add(product);
                 await context.SaveChangesAsync();
-                return Ok(model);
+                return Ok(product);
             }
             catch 
             {
