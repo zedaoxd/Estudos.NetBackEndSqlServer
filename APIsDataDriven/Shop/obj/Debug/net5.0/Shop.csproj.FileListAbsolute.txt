@@ -26,3 +26,6 @@ D:\Codes\CursoDOTNET\APIsDataDriven\Shop\obj\Debug\net5.0\refint\Shop.dll
 D:\Codes\CursoDOTNET\APIsDataDriven\Shop\obj\Debug\net5.0\Shop.pdb
 D:\Codes\CursoDOTNET\APIsDataDriven\Shop\obj\Debug\net5.0\Shop.genruntimeconfig.cache
 D:\Codes\CursoDOTNET\APIsDataDriven\Shop\obj\Debug\net5.0\ref\Shop.dll
+D:\Codes\CursoDOTNET\APIsDataDriven\Shop\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+D:\Codes\CursoDOTNET\APIsDataDriven\Shop\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Codes\CursoDOTNET\APIsDataDriven\Shop\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.InMemory.dll
