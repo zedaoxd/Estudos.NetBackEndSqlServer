@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -12,9 +13,42 @@ namespace Shop.Controllers
     [Route("users")]
     public class UserController : Controller
     {
+        [HttpGet]
+        [Route("")]
+        [Authorize(Roles = "manager")]
+        public async Task<ActionResult<List<User>>> Get([FromServices] DataContext context)
+        {
+            var users = await context.Users.AsNoTracking().ToListAsync();
+            return users;
+        }
+
+        [HttpPut]
+        [Route("{id:int}")]
+        [Authorize(Roles = "manager")]
+        public async Task<ActionResult<User>> Put(int id, [FromServices] DataContext context, [FromBody] User user)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (id != user.Id)
+                return NotFound("Não foi possivel encontrar o usuário");
+
+            try
+            {
+                context.Entry(user).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+                return Ok(user);
+            }
+            catch
+            {
+                return BadRequest(new { message = "Não foi possivel criar o usuário" });
+            }
+        }
+
         [HttpPost]
         [Route("")]
         [AllowAnonymous]
+        //[Authorize(Roles = "manager")]
         public async Task<ActionResult<User>> Post([FromServices] DataContext context, [FromBody] User model)
         {
             // verifica se os dados são válidos
@@ -53,24 +87,6 @@ namespace Shop.Controllers
             };
         }
 
-        [HttpGet]
-        [Route("anonimo")]
-        [AllowAnonymous]
-        public string Anonimo() => "Anonimo";
 
-        [HttpGet]
-        [Route("Autenticado")]
-        [Authorize]
-        public string Autenticado() => "Autenticado";
-
-        [HttpGet]
-        [Route("Funcionario")]
-        [Authorize(Roles = "employee")]
-        public string Funcionario() => "Funcionario";
-
-        [HttpGet]
-        [Route("Gerente")]
-        [Authorize(Roles = "manager")]
-        public string Gerente() => "Gerente";
     }
 }
