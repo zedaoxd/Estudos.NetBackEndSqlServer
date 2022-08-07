@@ -27,7 +27,7 @@ namespace Shop.Controllers
                 await context.SaveChangesAsync();
                 return Ok(model);
             }
-            catch 
+            catch
             {
                 return BadRequest("Não foi possivel criar o usuário");
             }
@@ -35,22 +35,42 @@ namespace Shop.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<ActionResult<dynamic>> Authenticate ([FromServices] DataContext context, [FromBody] User model)
+        public async Task<ActionResult<dynamic>> Authenticate([FromServices] DataContext context, [FromBody] User model)
         {
             var user = await context.Users
                 .AsNoTracking()
                 .Where(x => (x.UserName == model.UserName) && (x.Password == model.Password))
                 .FirstOrDefaultAsync();
-            
+
             if (user == null)
-                return NotFound(new { message = "Usuário ou senha inválidos"});
-            
+                return NotFound(new { message = "Usuário ou senha inválidos" });
+
             var token = TokenServices.GenerateToken(user);
-            return new 
+            return new
             {
                 user = user,
-                token = token 
+                token = token
             };
         }
+
+        [HttpGet]
+        [Route("anonimo")]
+        [AllowAnonymous]
+        public string Anonimo() => "Anonimo";
+
+        [HttpGet]
+        [Route("Autenticado")]
+        [Authorize]
+        public string Autenticado() => "Autenticado";
+
+        [HttpGet]
+        [Route("Funcionario")]
+        [Authorize(Roles = "employee")]
+        public string Funcionario() => "Funcionario";
+
+        [HttpGet]
+        [Route("Gerente")]
+        [Authorize(Roles = "manager")]
+        public string Gerente() => "Gerente";
     }
 }
