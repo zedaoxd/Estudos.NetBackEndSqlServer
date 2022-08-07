@@ -59,7 +59,6 @@ namespace Shop.Controllers
             // verifica se os dados são validos
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
             
             try
             {
