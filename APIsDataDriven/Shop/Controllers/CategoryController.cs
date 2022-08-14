@@ -10,7 +10,7 @@ namespace Shop.Controllers
 {
     // Endpoint = URL
     // http://localhost:5000
-    // https://localhost:5001/categories/
+    // https://localhost:5001/v1/categories/
     [Route("v1/categories")]
     public class CategoryController : ControllerBase
     {
