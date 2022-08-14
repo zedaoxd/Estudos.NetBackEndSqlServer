@@ -2,8 +2,26 @@ namespace PaymentContext.Domain.entities
 {
     public class CrediCardPayment : Payment
     {
-        public string CardHoldName { get; set; }
-        public string CardNumber { get; set; }
-        public string LastTransactionNumber { get; set; }
+        public CrediCardPayment(string cardHoldName,
+                                string cardNumber,
+                                string lastTransactionNumber,
+                                DateTime paidDate,
+                                DateTime expireDate,
+                                decimal total,
+                                decimal totalPaid,
+                                string payer,
+                                string document,
+                                string address,
+                                string email)
+            : base(paidDate, expireDate, total, totalPaid, payer, document, address, email)
+        {
+            CardHoldName = cardHoldName;
+            CardNumber = cardNumber;
+            LastTransactionNumber = lastTransactionNumber;
+        }
+
+        public string CardHoldName { get; private set; }
+        public string CardNumber { get; private set; }
+        public string LastTransactionNumber { get; private set; }
     }
 }
