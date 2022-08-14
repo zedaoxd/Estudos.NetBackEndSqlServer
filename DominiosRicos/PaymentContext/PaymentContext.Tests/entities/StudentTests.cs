@@ -8,8 +8,8 @@ namespace PaymentContext.Tests.entities
         [TestMethod]
         public void AdicionarAssinatura()
         {
-            var subscription = new Subscription(null);
-            var student = new Student("Bruno", "Lessa", "123456789", "bruno@bruno.com");
+            // var subscription = new Subscription(null);
+            // var student = new Student("Bruno", "Lessa", "123456789", "bruno@bruno.com");
         }
     }
 }
